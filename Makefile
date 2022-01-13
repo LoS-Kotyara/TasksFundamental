@@ -1,6 +1,8 @@
 GOLANG_DOCKER_IMAGE := golang:1.17.6
 APP_NAME := golang-tasks
 BUILD_TAG ?= latest
+REPO := ghcr.io
+USER := los-kotyara
 
 build:
  GOARCH=amd64 GOOS=linux go build -o dist/${APP_NAME}:${BUILD_TAG} main.go
@@ -57,6 +59,12 @@ stop-docker:	## stop docker image
 	@echo "Stopping existing docker image..."
 	@-docker stop $(APP_NAME):${BUILD_TAG}; docker rm $(APP_NAME):${BUILD_TAG}
 
+push-docker-image: ## push docker image to repo
+	docker tag ${APP_NAME}:${BUILD_TAG} ${REPO}/${USER}/${APP_NAME}:latest
+	docker tag ${APP_NAME}:${BUILD_TAG} ${REPO}/${USER}/${APP_NAME}:${BUILD_TAG}
+
+	docker push ${REPO}/${USER}/${APP_NAME}:latest
+	docker push ${REPO}/${USER}/${APP_NAME}:${BUILD_TAG}
 
 
 help: ## Help target

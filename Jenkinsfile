@@ -27,20 +27,16 @@ pipeline {
 
         stage('Build docker image') {
             retry(count: 3) {
-                steps {
-                    echo 'Building docker image...'
-                    sh 'make build-docker-image'
-                }
+                echo 'Building docker image...'
+                sh 'make build-docker-image'
             }
 
         }
 
         stage('Push docker image') {
             retry(count: 2) {
-                steps {
-                    echo 'Pushing to docker images repo...'
-                    sh 'make push-docker-image'
-                }
+                echo 'Pushing to docker images repo...'
+                sh 'make push-docker-image'
             }
 
         }

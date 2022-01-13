@@ -3,6 +3,9 @@ pipeline {
     environment {
         BUILD_TAG='${BUILD_ID}'
     }
+    options {
+        retry(3)
+    }
     stages {
         stage('INFO') {
             steps {

@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	A "fundamental/tasks/Task_A"
 	AAsterisk "fundamental/tasks/Task_A_asterisk"
 	B "fundamental/tasks/Task_B"
@@ -51,7 +50,7 @@ func main() {
 		E.Process(w)
 	})
 
-	fmt.Printf("Server running @ http://localhost%v\n", HTTPServerPort)
+	log.Printf("Server running @ http://localhost%v\n", HTTPServerPort)
 	if err := http.ListenAndServe(HTTPServerPort, nil); err != nil {
 		log.Fatal(err)
 	}

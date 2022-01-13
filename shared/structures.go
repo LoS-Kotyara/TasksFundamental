@@ -26,6 +26,9 @@ func NewLinkedList() *LinkedList {
 
 func (ll *LinkedList) ToArray() []int {
 	arr := make([]int, 0)
+	if ll == nil {
+		return arr
+	}
 
 	cur := ll.Head
 	for ; cur.Next != nil; cur = cur.Next {
@@ -37,9 +40,12 @@ func (ll *LinkedList) ToArray() []int {
 }
 
 func (ll *LinkedList) ToGraphNodes() []opts.GraphNode {
+	nodes := make([]opts.GraphNode, 0)
+	if ll == nil {
+		return nodes
+	}
 	arr := ll.ToArray()
 
-	nodes := make([]opts.GraphNode, 0)
 	keys := make(map[int]bool)
 	for _, e := range arr {
 		if _, v := keys[e]; !v {

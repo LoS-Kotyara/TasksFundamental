@@ -12,7 +12,7 @@ pipeline {
         }
 
         stage('Build') {
-            steps {push-docker-image:
+            steps {
                 echo 'Compiling and building'
                 sh 'make build'
             }

@@ -3,9 +3,6 @@ pipeline {
     environment {
         BUILD_TAG='${BUILD_ID}'
     }
-    options {
-        retry(3)
-    }
     stages {
         stage('INFO') {
             steps {
@@ -29,17 +26,23 @@ pipeline {
         }
 
         stage('Build docker image') {
-            steps {
-                echo 'Building docker image...'
-                sh 'make build-docker-image'
+            retry(count: 3) {
+                steps {
+                    echo 'Building docker image...'
+                    sh 'make build-docker-image'
+                }
             }
+
         }
 
         stage('Push docker image') {
-            steps {
-                echo 'Pushing to docker images repo...'
-                sh 'make push-docker-image'
+            retry(count: 2) {
+                steps {
+                    echo 'Pushing to docker images repo...'
+                    sh 'make push-docker-image'
+                }
             }
+
         }
     }
 }

@@ -50,7 +50,7 @@ func main() {
 		E.Process(w)
 	})
 
-	log.Printf("Server running @ http://localhost%v\n", HTTPServerPort)
+	log.Printf("Server running @@ http://localhost%v\n", HTTPServerPort)
 	if err := http.ListenAndServe(HTTPServerPort, nil); err != nil {
 		log.Fatal(err)
 	}

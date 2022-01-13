@@ -49,7 +49,7 @@ run: stop build	## run binary
 
 build-docker-image:	## build docker image
 	@echo "Building docker image..."
-	docker build --pull --no-cache -t ${APP_NAME}:${BUILD_TAG} .
+	docker build --pull -t ${APP_NAME}:${BUILD_TAG} .
 
 run-docker: stop-docker build-docker-image ## run docker image
 	@echo "Starting docker image..."

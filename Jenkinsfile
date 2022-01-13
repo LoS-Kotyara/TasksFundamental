@@ -1,17 +1,34 @@
 pipeline {
     agent any
+    environment {
+        BUILD_TAG='${BUILD_ID}'
+    }
     stages {
-        stage('Pre test') {
+        stage('INFO') {
             steps {
-                echo 'Pre test'
-                echo "${BUILD_ID}"
+                echo 'Job:      ${JOB_NAME}'
+                echo 'Build id: ${BUILD_ID}'
             }
         }
 
         stage('Build') {
             steps {
                 echo 'Compiling and building'
-                sh 'make build BUILD_TAG=${BUILD_ID}'
+                sh 'make build'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Testing...'
+                sh 'make test'
+            }
+        }
+
+        stage('Build docker image') {
+            steps {
+                echo 'Building docker image...'
+                sh 'make build-docker-image'
             }
         }
     }

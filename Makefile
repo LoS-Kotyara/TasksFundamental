@@ -23,7 +23,7 @@ fmt:	## format code
 
 test: vet fmt	## test
 	@echo "Testing..."
-	docker run --rm \d
+	docker run --rm \
 		-v "$$PWD":/usr/src/${APP_NAME} \
 		-w /usr/src/${APP_NAME} \
 		golang:1.17.6 \

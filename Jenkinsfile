@@ -4,7 +4,7 @@ pipeline {
         stage('Pre test') {
             steps {
                 echo 'Pre test'
-                echo ${BUILD_ID}
+                echo "${BUILD_ID}"
             }
         }
 

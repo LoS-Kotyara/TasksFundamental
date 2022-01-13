@@ -39,7 +39,10 @@ func TestToBeta(t *testing.T) {
 	input := []int{
 		0,
 		21,
-		465, 786, 564, 534,
+		465,
+		786,
+		564,
+		534,
 	}
 
 	expected := []float64{

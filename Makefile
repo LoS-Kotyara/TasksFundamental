@@ -1,8 +1,9 @@
 GOLANG_DOCKER_IMAGE := golang:1.17.6
 APP_NAME := golang-tasks
+BUILD_TAG ?= latest
 
 build:
- GOARCH=amd64 GOOS=linux go build -o dist/${APP_NAME} main.go
+ GOARCH=amd64 GOOS=linux go build -o dist/${APP_NAME}:${BUILD_TAG} main.go
 
 vet:	## vet code
 	@echo "Vetting..."
@@ -35,26 +36,26 @@ build:	## build binary
     		-w /usr/src/${APP_NAME} \
     		--env CGO_ENABLED=0 --env GOOS=linux \
     		golang:1.17.6 \
-    		go build -o dist/${APP_NAME}
+    		go build -o dist/${APP_NAME}:${BUILD_TAG}
 
 stop:	## stop binary
 	@-pkill ${APP_NAME}
 
 run: stop build	## run binary
 	@echo "Starting binary..."
-	./dist/${APP_NAME} &
+	./dist/${APP_NAME}:${BUILD_TAG} &
 
 build-docker-image:	## build docker image
 	@echo "Building docker image..."
-	docker build --pull -t ${APP_NAME} .
+	docker build --pull -t ${APP_NAME}:${BUILD_TAG} .
 
 run-docker: stop-docker build-docker-image ## run docker image
 	@echo "Starting docker image..."
-	docker run -d -p 8081:8081 ${APP_NAME}
+	docker run -d -p 8081:8081 ${APP_NAME}:${BUILD_TAG}
 
 stop-docker:	## stop docker image
 	@echo "Stopping existing docker image..."
-	@-docker stop $(APP_NAME); docker rm $(APP_NAME)
+	@-docker stop $(APP_NAME):${BUILD_TAG}; docker rm $(APP_NAME):${BUILD_TAG}
 
 
 

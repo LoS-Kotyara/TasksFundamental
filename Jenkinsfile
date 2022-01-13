@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('INFO') {
             steps {
-                sh 'echo "Job:      ${JOB_NAME}""'
+                sh 'echo "Job:      ${JOB_NAME}"'
                 sh 'echo "Build id: ${BUILD_ID}"'
             }
         }
